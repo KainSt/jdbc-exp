@@ -14,6 +14,7 @@ public class Main {
            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM country");
            while (resultSet.next()){
                System.out.println(resultSet.getString(1));
+               System.out.println();
            }
            } catch(Exception ex){
             ex.getStackTrace();
