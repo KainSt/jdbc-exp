@@ -14,7 +14,7 @@ public class Courses {
     @Column(columnDefinition = "enum")
     private CourseType type;
 
-    private int description;
+    private String description;
 
     @Column(name = "teacher_id")
     private int  teacherId;
@@ -60,11 +60,11 @@ public class Courses {
         this.type = type;
     }
 
-    public int getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(int description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

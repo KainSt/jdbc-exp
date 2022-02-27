@@ -13,6 +13,7 @@ public class HiberMain {
         SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
         Session session = sessionFactory.openSession();
         Courses course = session.get(Courses.class, 1);
+        System.out.println();
         sessionFactory.close();
     }
 }

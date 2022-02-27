@@ -11,7 +11,7 @@ public class Main {
 
         String url = "jdbc:mysql://localhost:3306/jsk";
         String user = "root";
-        String pass = "";
+        String pass = "sqlpassword";
         Map<String, Double> nameCourse = new TreeMap<>();
        try {
            Connection connection = DriverManager.getConnection(url,user,pass);
