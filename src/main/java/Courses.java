@@ -20,7 +20,7 @@ public class Courses {
     private int  teacherId;
 
     @Column(name = "students_count")
-    private int studentsCount;
+    private Integer studentsCount;
 
     private int price;
 
@@ -77,7 +77,12 @@ public class Courses {
     }
 
     public int getStudentsCount() {
-        return studentsCount;
+        try{
+            return studentsCount;
+        } catch(NullPointerException ex){
+            return 0;
+        }
+
     }
 
     public void setStudentsCount(int studentsCount) {

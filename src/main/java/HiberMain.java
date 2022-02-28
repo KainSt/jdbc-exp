@@ -19,15 +19,14 @@ public class HiberMain {
         Session session = sessionFactory.openSession();
 
 
+        List<Courses> rows =  session.createSQLQuery("SELECT * FROM courses")
+                    .addEntity(Courses.class)
+                    .list(); 
 
-
-        List<Courses> rows =  session.createSQLQuery("select * from courses where students_count >= 0")
-                .addEntity(Courses.class)
-                .list();
+        
 
         for (Courses row:rows) {
             System.out.println(row.getName() + " - " +row.getStudentsCount() + " студентов на курсе.");
-
         }
 
 
