@@ -6,6 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import java.util.List;
 
 
 public class HiberTrans {
@@ -18,15 +19,16 @@ public class HiberTrans {
 
       Transaction transaction = session.beginTransaction();
        Courses course = session.get(Courses.class, 1);
-       /*
+         /*
         course.setName("Умелая продажа всего");
         course.setId(47);
         course.setTeacherId(2);
         course.setType(CourseType.MARKETING);
-
         session.save(course);*/
 
         System.out.println(course.getTeacher().getName());
+        course.getStudentList().forEach(student-> System.out.println(student.getName()));
+
         transaction.commit();
         sessionFactory.close();
 
