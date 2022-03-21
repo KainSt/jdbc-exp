@@ -1,36 +1,35 @@
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 
-public class HiberTrans {
+public class HiberCriteria {
     public static void main(String[] args) {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
         Metadata metadata = new MetadataSources(registry).getMetadataBuilder().build();
         SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
 
         Session session = sessionFactory.openSession();
-
-      Transaction transaction = session.beginTransaction();
-       Courses course = session.get(Courses.class, 1);
-         /*
-        course.setName("Умелая продажа всего");
-        course.setId(47);
-        course.setTeacherId(2);
-        course.setType(CourseType.MARKETING);
-        session.save(course);*/
-
-        System.out.println(course.getTeacher().getName());
-        course.getStudentList().forEach(student-> System.out.println(student.getName()));
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Courses> query = builder.createQuery(Courses.class);
+        Root<Courses> root = query.from(Courses.class);
+        query.select(root).where(builder.greaterThan(root.get("price"),100000)).orderBy(builder.desc(root.get("price")));
+        List<Courses> listCourses = session.createQuery(query).setMaxResults(5).getResultList();
+        for (Courses c: listCourses ) {
+            System.out.println(c.getName() + " - "  + c.getTeacher().getName() + " - " + c.getPrice() );
+        }
 
 
-        transaction.commit();
+
+
         sessionFactory.close();
 
     }

@@ -1,9 +1,9 @@
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table (name = "students")
-public class Student {
+    @Entity
+    @Table (name = "students")
+    public class Student {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
