@@ -10,6 +10,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+import static org.hibernate.id.PersistentIdentifierGenerator.PK;
+
 
 public class HiberCriteria {
     public static void main(String[] args) {
@@ -23,11 +25,12 @@ public class HiberCriteria {
         Root<Courses> root = query.from(Courses.class);
         query.select(root).where(builder.greaterThan(root.get("price"),100000)).orderBy(builder.desc(root.get("price")));
         List<Courses> listCourses = session.createQuery(query).setMaxResults(5).getResultList();
+
         for (Courses c: listCourses ) {
             System.out.println(c.getName() + " - "  + c.getTeacher().getName() + " - " + c.getPrice() );
         }
 
-
+     //  LinkedPurchaseList subscription = session.get(LinkedPurchaseList.class, new LinkedPurchaseList.PurchaseListKey(1, 2));
 
 
         sessionFactory.close();
